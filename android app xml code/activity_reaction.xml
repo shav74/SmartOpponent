@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".reaction"
+    android:background="@color/background">
+
+    <Button
+        android:id="@+id/btn_1"
+        android:layout_width="72dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="172dp"
+        android:text="1"
+        android:textSize="@dimen/_24sdp"
+        app:cornerRadius="@dimen/_8sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText"
+        android:onClick="setInput" android:tag="10"/>
+
+    <Button
+        android:id="@+id/btn_3"
+        android:layout_width="72dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="4dp"
+        android:text="3"
+        android:textSize="@dimen/_24sdp"
+        app:cornerRadius="@dimen/_8sdp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_1"
+        android:onClick="setInput" android:tag="30"/>
+
+    <Button
+        android:id="@+id/btn_6"
+        android:layout_width="72dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="120dp"
+        android:text="6"
+        android:textSize="@dimen/_24sdp"
+        app:cornerRadius="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_4"
+        android:onClick="setInput" android:tag="60"/>
+
+    <Button
+        android:id="@+id/btn_2"
+        android:layout_width="72dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="172dp"
+        android:layout_marginEnd="112dp"
+        android:text="2"
+        android:textSize="@dimen/_24sdp"
+        app:cornerRadius="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.411"
+        app:layout_constraintStart_toEndOf="@+id/btn_1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="setInput" android:tag="20"/>
+
+    <Button
+        android:id="@+id/btn_4"
+        android:layout_width="72dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="120dp"
+        android:text="4"
+        android:textSize="@dimen/_24sdp"
+        app:cornerRadius="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_2"
+        android:onClick="setInput" android:tag="40"/>
+
+    <Button
+        android:id="@+id/btn_5"
+        android:layout_width="72dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="4dp"
+        android:text="5"
+        android:textSize="@dimen/_24sdp"
+        app:cornerRadius="@dimen/_8sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_3"
+        android:onClick="setInput" android:tag="50"/>
+
+    <TextView
+        android:id="@+id/title_react"
+        android:layout_width="316dp"
+        android:layout_height="87dp"
+        android:layout_marginTop="56dp"
+        android:gravity="center"
+        android:text="Reactions Mode"
+        android:textColor="@color/primary_text"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.597"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/go_back_react"
+        android:layout_width="38dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_24"
+        app:tint="@color/primary_text" />
+
+    <EditText
+        android:id="@+id/txt_reaction_combos"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="251dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="452dp"
+        android:hint="enter combo"
+        android:inputType="number"
+        android:textColorHint="@color/secondary_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="161dp"
+        android:layout_height="68dp"
+        android:text="SET"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_15sdp"
+        android:textStyle="bold"
+        app:cornerRadius="@dimen/_25sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.731" />
+
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="161dp"
+        android:layout_height="68dp"
+        android:text="Clear"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_15sdp"
+        android:textStyle="bold"
+        app:cornerRadius="@dimen/_25sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.866"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.73" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="360dp"
+        android:layout_height="119dp"
+        android:layout_marginTop="652dp"
+        android:padding="@dimen/_23sdp"
+        app:cardBackgroundColor="@color/primary"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/_6ssp"
+            android:text="Tip: Use numbers for quick one punch test, or you can try any combo you want with combo section."
+            android:textAlignment="center"
+            android:textColor="@color/btn_text"
+            android:textSize="@dimen/_15ssp" />
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

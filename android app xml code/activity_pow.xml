@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/title_pow"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".pow">
+
+    <TextView
+        android:id="@+id/text_title_pow"
+        android:layout_width="316dp"
+        android:layout_height="87dp"
+        android:layout_marginTop="68dp"
+        android:gravity="center"
+        android:text="Power Analyzer"
+        android:textColor="@color/primary_text"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.558"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/go_back_pow"
+        android:layout_width="38dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_24"
+        app:tint="@color/primary_text" />
+
+    <Button
+        android:id="@+id/btn_4"
+        android:layout_width="72dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="116dp"
+        android:onClick="sendInput"
+        android:tag="40"
+        android:text="4"
+        android:textSize="@dimen/_24sdp"
+        app:cornerRadius="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_2" />
+
+    <Button
+        android:id="@+id/btn_3"
+        android:layout_width="72dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="12dp"
+        android:onClick="sendInput"
+        android:tag="30"
+        android:text="3"
+        android:textSize="@dimen/_24sdp"
+        app:cornerRadius="@dimen/_8sdp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_4"
+        app:layout_constraintHorizontal_bias="0.153"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_1" />
+
+    <Button
+        android:id="@+id/btn_2"
+        android:layout_width="72dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="336dp"
+        android:layout_marginEnd="112dp"
+        android:onClick="sendInput"
+        android:tag="20"
+        android:text="2"
+        android:textSize="@dimen/_24sdp"
+        app:cornerRadius="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toEndOf="@+id/btn_1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_1"
+        android:layout_width="72dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="336dp"
+        android:text="1"
+        android:textSize="@dimen/_24sdp"
+        app:cornerRadius="@dimen/_8sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText"
+        android:onClick="sendInput" android:tag="10"/>
+
+    <Button
+        android:id="@+id/btn_5"
+        android:layout_width="72dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="16dp"
+        android:onClick="sendInput"
+        android:tag="50"
+        android:text="5"
+        android:textSize="@dimen/_24sdp"
+        app:cornerRadius="@dimen/_8sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_3" />
+
+    <Button
+        android:id="@+id/btn_6"
+        android:layout_width="72dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="116dp"
+        android:onClick="sendInput"
+        android:tag="60"
+        android:text="6"
+        android:textSize="@dimen/_24sdp"
+        app:cornerRadius="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_4" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="360dp"
+        android:layout_height="119dp"
+        android:layout_marginTop="652dp"
+        android:padding="@dimen/_23sdp"
+        app:cardBackgroundColor="@color/primary"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/_6ssp"
+            android:text="tip: set desired punch type and punch hard as you can to get a the of the power of the punch."
+            android:textAlignment="center"
+            android:textColor="@color/btn_text"
+            android:textSize="@dimen/_15ssp" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/txtPower"
+        android:layout_width="245dp"
+        android:layout_height="92dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/_30sdp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.256" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
