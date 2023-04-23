@@ -1,0 +1,330 @@
+#include <Adafruit_MPU6050.h>
+#include <Adafruit_Sensor.h>
+#include <Wire.h>
+#include <SoftwareSerial.h>
+
+#define led_one 2
+#define led_two 3
+#define led_three 4
+#define led_four 5
+#define led_five 6
+#define led_six 7
+#define led_miss 9
+
+Adafruit_MPU6050 mpu;
+SoftwareSerial ArduinoUno(12, 11);
+
+int one, two, three, four, five, six;
+//jab , cross, left hook, right hook, left uppercut, right uppercut
+double acc_x, acc_y, acc_z, max_acc_value;
+bool valid_punch = false;
+int punch_power;
+int threshold = 100;
+int hits, misses;
+int coeff = 1;  //bag weight
+int wait_time = 250;
+int mode = 1;
+
+
+char charBuf[10] = "10";
+String mode_data;
+String reading;
+
+
+void setup(void) {
+
+  pinMode(led_one, OUTPUT);
+  pinMode(led_two, OUTPUT);
+  pinMode(led_three, OUTPUT);
+  pinMode(led_four, OUTPUT);
+  pinMode(led_five, OUTPUT);
+  pinMode(led_one, OUTPUT);
+  pinMode(led_miss, OUTPUT);
+
+  ArduinoUno.begin(4800);
+
+  Serial.begin(115200);
+  while (!Serial)
+    delay(10);
+
+  if (!mpu.begin()) {
+    Serial.println("Failed to find MPU6050 chip");
+    while (1) {
+      delay(10);
+    }
+  }
+
+  // mpu is here done can notify the user about it.. all set! good luck
+
+  mpu.setAccelerometerRange(MPU6050_RANGE_16_G);
+  Serial.println("");
+  delay(1000);
+}
+
+void loop() {
+
+  sensors_event_t a, g, temp;
+  mpu.getEvent(&a, &g, &temp);
+
+  acc_x = abs(a.acceleration.x);
+  acc_y = abs(a.acceleration.y);
+  acc_z = abs(a.acceleration.z);
+
+  while (ArduinoUno.available() > 0) {
+    reading = ArduinoUno.readStringUntil('\n');
+
+    if (reading.toInt() < 10) {
+      mode = reading.toInt();
+    }
+
+    if ((mode == 2) || (mode == 3) || (mode == 4) && reading.toInt() >= 10) {
+      mode_data = reading;
+      reading.toCharArray(charBuf, 10);
+      Serial.println(charBuf);
+    }
+  }
+
+  delay(20);
+
+  switch (mode) {
+    case 1:
+      free_mode();
+      // FREE MODE
+      break;
+    case 2:
+      combinations(charBuf);
+      print("combo");
+      //combo mode
+      break;
+    case 3:
+      random_mode(charBuf);
+      // random mode
+      print("now in random mode");
+      break;
+    case 4:
+      reaction_mode(charBuf);
+      print("now in reaction mode");
+      break;
+    case 5:
+      power_mode(charBuf);
+      print("now in power mode");
+      break;
+  }
+
+  delay(30);
+  //send a 0 from the server side (mobile)
+}
+
+int punch() {
+
+  punch_power;
+
+  //reading the sensor data and waiting for a punch
+
+  while ((one < threshold) || (two < threshold) || (three < threshold) || (four < threshold) || (five < threshold) || (six < threshold) == false) {
+
+    one = analogRead(A0);
+    two = analogRead(A1);
+    three = analogRead(A2);
+    four = analogRead(A3);
+    five = analogRead(A6);
+    six = analogRead(A7);
+
+    if (one > threshold) {
+      punch_power = acc_x * coeff;
+      print(punch_power);
+      delay(wait_time);
+      return 49;
+      break;
+
+    } else if (two > threshold) {
+      punch_power = acc_x * coeff;
+      print(punch_power);
+      delay(wait_time);
+      return 50;
+      break;
+
+    } else if (three > threshold) {
+      punch_power = acc_y * coeff;
+      print(punch_power);
+      delay(wait_time);
+      return 51;
+      break;
+
+    } else if (four > threshold) {
+      punch_power = acc_y * coeff;
+      print(punch_power);
+      delay(wait_time);
+      return 52;
+      break;
+
+    } else if (five > threshold) {
+      punch_power = acc_z * coeff;
+      print(punch_power);
+      delay(wait_time);
+      return 53;
+      break;
+
+    } else if (six > threshold) {
+      punch_power = acc_z * coeff;
+      print(punch_power);
+      delay(wait_time);
+      return 54;
+      break;
+    }
+  }
+}
+
+void combinations(char combo[]) {
+  int combo_size = String(combo).indexOf('0');
+  Serial.println(combo_size);
+  char combo_accuracy[combo_size];
+  //looping user given combination arr until arr[i] == 0 (android app data + "0" )
+  for (int i = 0; i < combo_size; i++) {
+
+    int punch_type = combo[i];
+
+    led_control(punch_type, 1);
+    int punched = punch();
+    print(punched);
+
+    if (punch_type == punched) {
+      hits++;
+      print("hit una");
+      led_control(punch_type, 0);
+      combo_accuracy[i] = 1;
+    } else {
+      misses++;
+      digitalWrite(led_miss, HIGH);
+      delay(200);
+      digitalWrite(led_miss, LOW);
+      led_control(punch_type, 0);
+      combo_accuracy[i] = 0;
+    }
+  }
+  // ArduinoUno.print(combo_accuracy);
+  // ArduinoUno.println("\n");
+  //TODO methana firebase ekata yawapan serial swap karalaaaa
+}
+
+void free_mode() {
+  int punched = punch();
+  led_control(punched, 1);
+  delay(200);
+  led_control(punched, 0);
+}
+
+void random_mode(char combo[]) {
+  int combo_size = String(combo).indexOf('0');
+
+  for (int i = 0; i < combo_size; i++) {
+
+    int punch_type = combo[i];
+
+    led_control(punch_type, 1);
+    int punched = punch();
+    print(punched);
+
+    if (punch_type == punched) {
+      hits++;
+      led_control(punch_type, 0);
+    } else {
+      misses++;
+      digitalWrite(led_miss, HIGH);
+      delay(200);
+      digitalWrite(led_miss, LOW);
+      led_control(punch_type, 0);
+    }
+  }
+}
+
+void reaction_mode(char combo[]) {
+
+  int combo_size = String(combo).indexOf('0');
+
+  unsigned long start_time = millis();
+
+  for (int i = 0; i < combo_size; i++) {
+
+    int punch_type = combo[i];
+
+    led_control(punch_type, 1);
+    int punched = punch();
+    print(punched);
+
+    if (punch_type == punched) {
+      hits++;
+      led_control(punch_type, 0);
+    } else {
+      misses++;
+      digitalWrite(led_miss, HIGH);
+      delay(200);
+      digitalWrite(led_miss, LOW);
+      led_control(punch_type, 0);
+    }
+  }
+  unsigned long end_time = millis();
+  unsigned long diff = end_time - start_time;
+  ArduinoUno.print(String(diff));
+  ArduinoUno.print("\n");
+
+}
+
+void power_mode(char combo[]) {
+
+  int combo_size = String(combo).indexOf('0');
+
+  for (int i = 0; i < combo_size; i++) {
+
+    int punch_type = combo[i];
+
+    led_control(punch_type, 1);
+    int punched = punch();
+    print(punched);
+  }
+
+  ArduinoUno.print(String(punch_power));
+  ArduinoUno.print("\n");
+
+}
+
+void led_control(int condition, int state) {
+  switch (condition) {
+    case 49:
+      digitalWrite(led_one, state);
+      break;
+    case 50:
+      digitalWrite(led_two, state);
+      break;
+    case 51:
+      digitalWrite(led_three, state);
+      break;
+    case 52:
+      digitalWrite(led_four, state);
+      break;
+    case 53:
+      digitalWrite(led_five, state);
+      break;
+    case 54:
+      digitalWrite(led_six, state);
+      break;
+  }
+}
+
+// uncomment for easier typeOf() :)
+
+void print(String a) {
+  Serial.println(a);
+}
+void print(int a) {
+  Serial.println(a);
+}
+void print(char *a) {
+  Serial.println(a);
+}
+void print(float a) {
+  Serial.println(a);
+}
+void print(bool a) {
+  Serial.println(a);
+}
